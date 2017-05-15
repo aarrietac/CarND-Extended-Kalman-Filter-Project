@@ -92,9 +92,10 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       */
       float rho = measurement_pack.raw_measurements_(0);
       float phi = measurement_pack.raw_measurements_(1);
+      float drho = measurement_pack.raw_measurements_(2);
 
       // from polar to cartesian
-      ekf_.x_ << rho*cos(phi), rho*sin(phi), 0, 0;
+      ekf_.x_ << rho*cos(phi), rho*sin(phi), drho*cos(phi), drho*sin(phi);
     }
     else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
       /**
